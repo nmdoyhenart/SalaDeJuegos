@@ -16,20 +16,18 @@ export class QuienSoyComponent implements OnInit {
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef // <-- Herramienta para forzar el dibujado en pantalla
+    private cdr: ChangeDetectorRef // Fuerza el dibujado en pantalla
   ) {}
 
   ngOnInit(): void {
-    // 1. Verificamos que estamos en el navegador del usuario y no en el servidor de Vercel
     if (isPlatformBrowser(this.platformId)) {
-      
       this.http.get('https://api.github.com/users/nmdoyhenart')
         .subscribe({
           next: (data) => {
             this.perfilGithub = data;
             this.huboError = false;
-            // 2. Le decimos explícitamente a Angular: "Ya llegaron los datos, actualiza el HTML ahora"
-            this.cdr.detectChanges(); 
+        
+            this.cdr.detectChanges(); // Si pasa la validación fuerza a mostrar los datos
           },
           error: (error) => {
             console.error('Error de la API:', error);

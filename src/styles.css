@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #0d0d14;
+    /* Cuadrícula estilo arcade retro muy sutil */
+    background-image: 
+        linear-gradient(rgba(233, 69, 96, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(233, 69, 96, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: #eaeaea;
+    min-height: 100vh;
+}

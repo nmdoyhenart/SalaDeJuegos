@@ -1,0 +1,26 @@
+.custom-navbar {
+  background: linear-gradient(90deg, #1a1a2e 0%, #16213e 100%);
+  border-bottom: 3px solid #e94560; /* Acento rojo/rosado */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  padding: 15px 20px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.nav-link {
+  color: #a2a2bd !important;
+  font-weight: 600;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #e94560 !important;
+  text-shadow: 0 0 10px rgba(233, 69, 96, 0.6); /* Efecto neón */
+  transform: translateY(-2px);
+}
