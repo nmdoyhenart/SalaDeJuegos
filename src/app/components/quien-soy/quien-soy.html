@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Lado Izquierdo: Perfil de GitHub -->
+        <div class="col-md-5">
+        <!-- Nueva sintaxis de control de flujo de Angular -->
+        @if (perfilGithub) {
+            <div class="card shadow-sm">
+            <img [src]="perfilGithub.avatar_url" class="card-img-top p-3 rounded-circle" alt="Foto de perfil">
+            <div class="card-body text-center">
+                <h4 class="card-title">{{ perfilGithub.name || perfilGithub.login }}</h4>
+                <p class="card-text text-muted">Estudiante de Programación IV | Tecnicatura en Programación, UTN FRA</p>
+                <a [href]="perfilGithub.html_url" target="_blank" class="btn btn-dark">Ver GitHub</a>
+            </div>
+            </div>
+        } @else {
+            <div class="alert alert-info text-center">Cargando perfil de GitHub...</div>
+        }
+        </div>
+
+        <!-- Lado Derecho: Explicación del Juego Propio -->
+        <div class="col-md-7">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Juego propio: Snake 🐍</h5>
+            </div>
+            <div class="card-body">
+            <h6>¿Por qué elegí este juego?</h6>
+            <p>
+                Elegí desarrollar una versión del clásico "Snake" porque es un excelente minijuego para medir las <strong>capacidades cognitivas (toma de decisiones rápidas) y motrices (coordinación con el teclado)</strong> del jugador. Además, es un gran desafio a nivel de desarrollo, que me permite aplicar conceptos de lógica espacial y manejo de coordenadas [Matrices].
+            </p>
+            
+            <hr>
+            
+            <h6>Reglas y cómo jugar:</h6>
+            <ul class="mb-4">
+                <li><strong>El objetivo:</strong> Controlar a la serpiente para comer la mayor cantidad de alimento posible (puntos generados aleatoriamente en el mapa).</li>
+                <li><strong>Movimiento:</strong> La serpiente se mueve constantemente. Utiliza las <strong>flechas direccionales del teclado</strong> (Arriba, Abajo, Izquierda, Derecha) para cambiar su rumbo.</li>
+                <li><strong>Crecimiento:</strong> Cada vez que la serpiente come, su cuerpo aumenta de tamaño en una unidad y el jugador suma puntos.</li>
+            </ul>
+
+            <div class="row">
+                <div class="col-md-6">
+                <div class="alert alert-success">
+                    <strong>Condición de Victoria:</strong><br>
+                    El juego es infinito. El objetivo es superar constantemente la puntuación obtenida.
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="alert alert-danger">
+                    <strong>Condiciones de Derrota:</strong>
+                    <ul class="mb-0">
+                    <li>Chocar contra los límites (paredes) del tablero.</li>
+                    <li>Chocar contra cualquier parte del propio cuerpo de la serpiente.</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
