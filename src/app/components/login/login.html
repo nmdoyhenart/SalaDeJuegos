@@ -1,1 +1,58 @@
-<p>login works!</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+        <div class="card gamer-card shadow-lg">
+            <div class="card-header custom-card-header text-center">
+            <h4 class="mb-0 fw-bold">Iniciar Sesión</h4>
+            </div>
+            <div class="card-body p-4">
+            
+            @if (mensajeError) {
+                <div class="alert custom-alert-danger mb-4 text-center shadow-sm">
+                {{ mensajeError }}
+                </div>
+            }
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                
+                <div class="mb-3">
+                <label class="form-label text-accent">Correo Electrónico</label>
+                <input type="email" class="form-control custom-input" formControlName="correo" placeholder="ejemplo@correo.com">
+                </div>
+
+                <div class="mb-4">
+                <label class="form-label text-accent">Contraseña</label>
+                <input type="password" class="form-control custom-input" formControlName="password" placeholder="******">
+                </div>
+
+                <button type="submit" class="btn btn-neon-red w-100 rounded-pill py-2 fw-bold mb-4" [disabled]="cargando || loginForm.invalid">
+                @if (cargando) {
+                    Conectando...
+                } @else {
+                    ENTRAR AL ARCADE
+                }
+                </button>
+
+            </form>
+
+            <!-- Sección de Inicio de Sesión Rápido -->
+            <hr class="border-secondary opacity-25">
+            <h6 class="text-center text-light opacity-75 mb-3" style="font-size: 0.85rem;">ACCESO RÁPIDO PARA EVALUADORES</h6>
+            
+            <div class="d-flex justify-content-between gap-2 mb-4">
+                <button type="button" class="btn btn-outline-info btn-sm flex-fill fw-bold quick-btn" (click)="accesoRapido(usuariosPrueba[0])">
+                {{ usuariosPrueba[0].etiqueta }}
+                </button>
+                <button type="button" class="btn btn-outline-warning btn-sm flex-fill fw-bold quick-btn" (click)="accesoRapido(usuariosPrueba[1])">
+                {{ usuariosPrueba[1].etiqueta }}
+                </button>
+            </div>
+
+            <div class="text-center mt-2">
+                <p class="text-light opacity-75 mb-0">¿No tienes cuenta? <a routerLink="/registro" class="text-info text-decoration-none fw-bold">Regístrate aquí</a></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

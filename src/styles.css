@@ -1,10 +1,28 @@
 body {
-    background-color: #0d0d14;
-    /* Cuadrícula estilo arcade retro muy sutil */
-    background-image: 
-        linear-gradient(rgba(233, 69, 96, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(233, 69, 96, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background: radial-gradient(circle at top center, #1a1a2e 0%, #08080c 100%);
+    background-attachment: fixed; /* Fondo fijo */
+    background-color: #08080c;
     color: #eaeaea;
     min-height: 100vh;
+    margin: 0;
+}
+
+.navbar-logo {
+    filter: drop-shadow(0 0 5px #e94560);
+    animation: pulse-neon 2s infinite;
+}
+
+@keyframes pulse-neon {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px #e94560);
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        filter: drop-shadow(0 0 12px #ff2e63);
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px #e94560);
+    }
 }

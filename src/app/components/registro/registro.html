@@ -1,1 +1,62 @@
-<p>registro works!</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <div class="card gamer-card shadow-lg">
+            <div class="card-header custom-card-header text-center">
+            <h4 class="mb-0 fw-bold">Registro de Usuario</h4>
+            </div>
+            <div class="card-body p-4">
+            
+            <!-- Mensaje de error si el usuario ya existe -->
+            @if (mensajeError) {
+                <div class="alert custom-alert-danger mb-4 text-center shadow-sm">
+                {{ mensajeError }}
+                </div>
+            }
+
+            <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+                
+                <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label text-accent">Nombre</label>
+                    <input type="text" class="form-control custom-input" formControlName="nombre" placeholder="Tu nombre">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-accent">Apellido</label>
+                    <input type="text" class="form-control custom-input" formControlName="apellido" placeholder="Tu apellido">
+                </div>
+                </div>
+
+                <div class="mb-3">
+                <label class="form-label text-accent">Edad</label>
+                <input type="number" class="form-control custom-input" formControlName="edad" placeholder="Tu edad">
+                </div>
+
+                <div class="mb-3">
+                <label class="form-label text-accent">Correo Electrónico</label>
+                <input type="email" class="form-control custom-input" formControlName="correo" placeholder="ejemplo@correo.com">
+                </div>
+
+                <div class="mb-4">
+                <label class="form-label text-accent">Contraseña</label>
+                <input type="password" class="form-control custom-input" formControlName="password" placeholder="Mínimo 6 caracteres">
+                </div>
+
+                <button type="submit" class="btn btn-neon-red w-100 rounded-pill py-2 fw-bold" [disabled]="cargando || registroForm.invalid">
+                @if (cargando) {
+                    Registrando...
+                } @else {
+                    CREAR CUENTA
+                }
+                </button>
+
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="text-light opacity-75">¿Ya tienes cuenta? <a routerLink="/login" class="text-info text-decoration-none fw-bold">Inicia sesión aquí</a></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
