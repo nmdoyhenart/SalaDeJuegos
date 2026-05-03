@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { QuienSoyComponent } from './components/quien-soy/quien-soy.component';
 import { AhorcadoComponent } from './components/ahorcado/ahorcado.component';
-// import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
+import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
 // import { SnakeComponent } from './components/snake/snake.component';
 
 export const routes: Routes = [
@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent },
     { path: 'quien-soy', component: QuienSoyComponent },
     { path: 'ahorcado', component: AhorcadoComponent },
-    // { path: 'mayor-menor', component: MayorMenorComponent },
+    { path: 'mayor-menor', component: MayorMenorComponent },
     // { path: 'snake', component: SnakeComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' } // Ruta comodín para manejar errores 404

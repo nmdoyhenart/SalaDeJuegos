@@ -1,1 +1,59 @@
-<p>mayor-menor works!</p>
+<div class="container text-center mt-5 mb-5">
+    
+    <!-- Título -->
+    <div class="titulo-marquee mb-4 mt-3 position-relative">
+        <h1 class="titulo-cyberpunk">MAYOR O MENOR</h1>
+        <div class="linea-energia"></div>
+        
+        <div class="mt-3">
+        <span class="font-monospace fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">
+            @if (estadoJuego() === 'jugando') {
+            <span class="text-secondary">> ANALIZANDO_PROBABILIDADES_DEL_MAZO... </span><span class="cursor-parpadeo text-info">_</span>
+            } @else {
+            <span class="text-danger">> PREDICCIÓN_FALLIDA [SISTEMA_BLOQUEADO]</span>
+            }
+        </span>
+        </div>
+    </div>
+
+    <div class="arcade-card neon-border mx-auto" style="max-width: 500px; border-radius: 20px;">
+        <div class="arcade-card-content py-5 d-flex flex-column align-items-center">
+        
+        <!-- Contador de Racha -->
+        <div class="mb-4">
+            <h4 class="text-info tracking-wider fw-bold">
+            Racha Actual: <span class="text-white fs-2">{{ aciertos() }}</span>
+            </h4>
+        </div>
+
+        <!-- Naipe -->
+        @if (cartaActual(); as carta) {
+            <div class="naipe-caja shadow-lg mb-5 animacion-carta" [ngStyle]="{'color': carta.color}">
+            <div class="naipe-top">{{ carta.mostrar }} {{ carta.palo }}</div>
+            <div class="naipe-centro">{{ carta.palo }}</div>
+            <div class="naipe-bottom">{{ carta.mostrar }} {{ carta.palo }}</div>
+            </div>
+        }
+
+        <!-- Controles o Fin del Juego -->
+        @if (estadoJuego() === 'jugando') {
+            <div class="d-flex gap-4 w-100 justify-content-center">
+            <button class="btn-apuesta btn-menor" (click)="adivinar('menor')">
+                <i class="fs-4">↓</i> MENOR
+            </button>
+            <button class="btn-apuesta btn-mayor" (click)="adivinar('mayor')">
+                <i class="fs-4">↑</i> MAYOR
+            </button>
+            </div>
+        } @else {
+            <div class="resultado-pantalla panel-derrota mb-2 p-4 mx-auto w-100">
+            <div class="resultado-icono mb-2">💀</div>
+            <h2 class="fw-bold tracking-widest mb-3 texto-derrota">¡TE EQUIVOCASTE!</h2>
+            <p class="text-light fs-5 mb-4">Lograste una racha de <span class="palabra-revelada">{{ aciertos() }}</span> aciertos.</p>
+            <button class="btn-reiniciar" (click)="iniciarJuego()">JUGAR DE NUEVO</button>
+            </div>
+        }
+
+        </div>
+    </div>
+</div>
