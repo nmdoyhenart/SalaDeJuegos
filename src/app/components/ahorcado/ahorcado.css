@@ -1,0 +1,243 @@
+.titulo-marquee {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-cyberpunk {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #f0f0f5;
+    letter-spacing: 6px; 
+    text-transform: uppercase;
+    margin: 0;
+    /* Resplandor suave y difuminado, sin capas extremas */
+    text-shadow: 
+        0 0 10px rgba(233, 69, 96, 0.4),
+        0 0 20px rgba(233, 69, 96, 0.2);
+    animation: resplandorSuave 4s infinite alternate ease-in-out;
+}
+
+.linea-energia {
+    width: 150px;
+    height: 2px; 
+    margin-top: 10px;
+    /* Gradiente muy suave */
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.5), transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+    animation: latidoSuave 4s infinite ease-in-out;
+}
+
+/* Animación para el texto */
+@keyframes resplandorSuave {
+    0% { 
+        opacity: 0.85; 
+        text-shadow: 0 0 8px rgba(233, 69, 96, 0.3), 0 0 15px rgba(233, 69, 96, 0.1); 
+    }
+    100% { 
+        opacity: 1; 
+        text-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 25px rgba(233, 69, 96, 0.3); 
+    }
+}
+
+/* La línea respira lentamente sin deformarse tanto */
+@keyframes latidoSuave {
+    0% { opacity: 0.4; width: 130px; }
+    50% { opacity: 0.8; width: 160px; }
+    100% { opacity: 0.4; width: 130px; }
+}
+
+/* --- CURSOR DE TERMINAL --- */
+.cursor-parpadeo {
+    animation: parpadeoTerminal 1s step-end infinite;
+}
+
+@keyframes parpadeoTerminal {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.letra-caja {
+    width: 40px;
+    height: 50px;
+    border-bottom: 4px solid #e94560;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #1a1a2e;
+    border-radius: 4px 4px 0 0;
+}
+
+.btn-tecla {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #e94560;
+    background-color: transparent;
+    color: #e94560;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-tecla:hover:not(:disabled) {
+    background-color: #e94560;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-tecla:disabled.usada {
+    border-color: #4a4a5a;
+    color: #4a4a5a;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+}
+
+.resultado-pantalla {
+    max-width: 450px;
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-victoria {
+    background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(0, 30, 15, 0.4));
+    border: 2px solid rgba(0, 255, 136, 0.4);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.15);
+}
+
+.panel-derrota {
+    background: linear-gradient(145deg, rgba(233, 69, 96, 0.1), rgba(40, 10, 15, 0.4));
+    border: 2px solid rgba(233, 69, 96, 0.4);
+    box-shadow: 0 0 25px rgba(233, 69, 96, 0.15);
+}
+
+.resultado-icono {
+    font-size: 4rem;
+    animation: floatIcon 2.5s ease-in-out infinite;
+}
+
+.texto-victoria {
+    color: #00ff88;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+}
+
+.texto-derrota {
+    color: #e94560;
+    text-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+}
+
+.palabra-revelada {
+    color: #ffb800;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 184, 0, 0.4);
+}
+
+/* --- BOTÓN REINICIAR DINÁMICO --- */
+.btn-reiniciar {
+    background: transparent;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 80%;
+    text-transform: uppercase;
+}
+
+/* Si gana: Botón Verde */
+.panel-victoria .btn-reiniciar {
+    color: #00ff88;
+    border: 2px solid #00ff88;
+}
+
+.panel-victoria .btn-reiniciar:hover {
+    background: #00ff88;
+    color: #111; /* Texto oscuro para contrastar */
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    transform: scale(1.05);
+}
+
+/* Si pierde: Botón Rojo */
+    .panel-derrota .btn-reiniciar {
+    color: #e94560;
+    border: 2px solid #e94560;
+}
+
+.panel-derrota .btn-reiniciar:hover {
+    background: #e94560;
+    color: white;
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
+    transform: scale(1.05);
+}
+
+/* Animación del ícono flotando */
+    @keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px) scale(1.05); }
+}
+
+/* --- ANIMACIONES --- */
+
+/* Badge de Pista */
+.badge-neon {
+    background-color: #00ff88;
+    letter-spacing: 2px;
+    font-weight: 900;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.pista-container {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+/* Animación cuando descubres una letra correcta */
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; color: white; border-bottom-color: #e94560; }
+    60% { transform: scale(1.3); color: #00ff88; border-bottom-color: #00ff88;}
+    100% { transform: scale(1); opacity: 1; color: #00ff88; border-bottom-color: #00ff88; }
+}
+
+.letra-caja.descubierta {
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* El forwards asegura que se quede verde al terminar la animación */
+}
+
+/* Animación de entrada para el cartel final y el teclado */
+    .animacion-entrada {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.resultado-pantalla {
+    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.transicion-suave {
+    transition: color 0.3s ease;
+}
+
+/* Keyframes base para las entradas */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}

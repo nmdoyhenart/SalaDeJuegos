@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -13,15 +13,16 @@ import { AuthService } from '../../services/auth';
 })
 export class RegistroComponent {
   registroForm: FormGroup;
-  mensajeError: string = '';
-  cargando: boolean = false;
+  
+  // Transformamos las variables en Signals para evitar que la pantalla se congele
+  mensajeError = signal<string>('');
+  cargando = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
   constructor() {
-    // Creación del form con validación
     this.registroForm = this.fb.group({
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
@@ -32,31 +33,32 @@ export class RegistroComponent {
   }
 
   async onSubmit() {
-    // Si el form no es válido, no hace nada
     if (this.registroForm.invalid) {
       this.registroForm.markAllAsTouched();
       return;
     }
 
-    this.cargando = true;
-    this.mensajeError = 'Error al registrar el usuario. Por favor, inténtalo de nuevo.';
+    // Encendemos el signal de carga y limpiamos errores
+    this.cargando.set(true);
+    this.mensajeError.set('');
 
     try {
-      // Llamamos al servicio Supabase
       await this.authService.registrarUsuario(this.registroForm.value);
-      
-      // Si no hubo error, navegamos directo al Home
       this.router.navigate(['/home']);
     } catch (error: any) {
-      console.error('Error al registrar:', error);
-      // Validamos si el error es porque el correo ya existe
-      if (error.message.includes('already registered') || error.message.includes('already exists')) {
-        this.mensajeError = 'Este correo ya se encuentra registrado.';
+      console.error('Error crudo devuelto:', error);
+      
+      const mensaje = error?.message || '';
+
+      // Atrapamos tanto el error de Auth como el de Base de Datos (duplicate key)
+      if (mensaje.includes('already registered') || mensaje.includes('User already exists') || mensaje.includes('duplicate key')) {
+        this.mensajeError.set('¡Este correo electrónico ya se encuentra registrado!');
       } else {
-        this.mensajeError = 'Ocurrió un error al intentar registrarse.';
+        this.mensajeError.set('Ocurrió un error al intentar registrarse. Inténtalo de nuevo.');
       }
     } finally {
-      this.cargando = false;
+      // Apagamos el signal de carga
+      this.cargando.set(false);
     }
   }
 }

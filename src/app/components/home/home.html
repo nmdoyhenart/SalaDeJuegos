@@ -21,7 +21,7 @@
         <!-- VISTA JUGADOR LOGUEADO -->
         <div class="mb-5 text-center mt-4">
         <h3 class="text-light fw-light">
-            ¡Comienza tu nuevo episodio <span style="color: #e94560; font-weight: bold; text-shadow: 0 0 10px rgba(233,69,96,0.5);"> {{ perfilJugador()?.nombre }}</span> !
+            ¡Comienza tu nuevo episodio <span style="color: #e94560; font-weight: bold; text-shadow: 0 0 10px rgba(233,69,96,0.5);"> {{ perfilJugador()?.nombre }}</span>!
         </h3>
         </div>
 
@@ -66,19 +66,19 @@
             </div>
         </div>
 
-        <!-- TARJETA 3: AHORCADO (Bloqueada) -->
+        <!-- TARJETA 3: AHORCADO -->
         <div class="col-md-6 col-lg-5">
-            <div class="arcade-card locked h-100" style="border-radius: 5px 50px 5px 50px;">
-            <div class="arcade-card-content text-center d-flex flex-column justify-content-center" style="border-radius: 2px 47px 2px 47px; position: relative;">
+            <div class="arcade-card neon-border h-100" style="border-radius: 5px 50px 5px 50px;">
+            <div class="arcade-card-content text-center" style="border-radius: 2px 47px 2px 47px; position: relative;">
 
-                <div class="mb-4 mt-3">
-                <span class="question-mark" style="font-size: 3.5rem; opacity: 0.5;">🔤</span>
-                </div>
-
-                <h2 class="text-secondary fw-bold mb-3 tracking-wider">AHORCADO</h2>
-                <p class="text-secondary opacity-50 mb-0 px-3" style="font-size: 0.95rem;">
-                En desarrollo para el próximo sprint...
+                <h2 class="text-white fw-bold mb-3 tracking-wider">AHORCADO🔤</h2>
+                <p class="text-light opacity-75 mb-4 px-3" style="font-size: 0.95rem;">
+                Descubre la <strong>palabra secreta</strong> antes de quedarte sin vidas.
                 </p>
+                
+                <div class="mt-auto pb-3">
+                <button class="btn-arcade" routerLink="/ahorcado">JUGAR AHORA</button>
+                </div>
             </div>
             </div>
         </div>
