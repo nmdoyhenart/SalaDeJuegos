@@ -27,6 +27,7 @@ export class AhorcadoComponent implements OnInit {
   letrasUsadas: string[] = [];
   intentosRestantes = signal<number>(6);
   estadoJuego = signal<'jugando' | 'ganado' | 'perdido'>('jugando');
+  mostrarAyuda = signal<boolean>(false);
 
   private authService = inject(AuthService);
 
@@ -69,6 +70,27 @@ export class AhorcadoComponent implements OnInit {
     }
   }
 
+  dibujosAhorcado: string[] = [
+    // 0 vidas
+    `  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========`,
+    // 1 vida
+    `  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========`,
+    // 2 vidas
+    `  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========`,
+    // 3 vidas
+    `  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========`,
+    // 4 vidas
+    `  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========`,
+    // 5 vidas
+    `  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========`,
+    // 6 vidas
+    `  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========`
+  ];
+
+  obtenerDibujoAscii(): string {
+    return this.dibujosAhorcado[this.intentosRestantes()];
+  }
+
   verificarVictoria() {
     if (!this.palabraOculta.includes('_')) {
       this.estadoJuego.set('ganado');
@@ -103,5 +125,9 @@ export class AhorcadoComponent implements OnInit {
         console.error("Error al guardar partida:", err);
       }
     }
+  }
+
+  toggleAyuda() {
+    this.mostrarAyuda.update(valor => !valor);
   }
 }

@@ -1,26 +1,60 @@
-<div class="container text-center mt-5 mb-5">
+<div class="container position-relative text-center mt-5 mb-5">
+    <!-- BOTÓN AYUDA -->
+    <button class="btn-ayuda position-absolute" style="top: 0; right: 15px;" (click)="toggleAyuda()" title="¿Cómo jugar?">
+        ?
+    </button>
     <div class="titulo-marquee mb-4 mt-3 position-relative">
-    <h1 class="titulo-cyberpunk">EL AHORCADO</h1>
-    <div class="linea-energia"></div>
-    
-    <!-- Subtítulo Dinámico de Terminal -->
-    <div class="mt-3">
-        <span class="font-monospace fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">
-            @if (estadoJuego() === 'jugando') {
-            <span class="text-secondary">> EJECUTANDO_PROTOCOLO_DE_DESENCRIPTACIÓN... </span><span class="cursor-parpadeo text-success">_</span>
-            } @else if (estadoJuego() === 'ganado') {
-            <span class="text-success">> ACCESO_CONCEDIDO [MAINFRAME_VULNERADO]</span>
-            } @else {
-            <span class="text-danger">> CONEXIÓN_INTERRUMPIDA [SISTEMA_BLOQUEADO]</span>
-            }
-        </span>
+        <h1 class="titulo-cyberpunk">EL AHORCADO</h1>
+        <div class="linea-energia"></div>
+
+        <!-- Subtítulo Dinámico de Terminal -->
+        <div class="mt-3">
+            <span class="font-monospace fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">
+                @if (estadoJuego() === 'jugando') {
+                    <span class="text-secondary">> EJECUTANDO_PROTOCOLO_DE_DESENCRIPTACIÓN... </span><span class="cursor-parpadeo text-success">_</span>
+                } @else if (estadoJuego() === 'ganado') {
+                    <span class="text-success">> ACCESO_CONCEDIDO [MAINFRAME_VULNERADO]</span>
+                } @else {
+                    <span class="text-danger">> CONEXIÓN_INTERRUMPIDA [SISTEMA_BLOQUEADO]</span>
+                }
+            </span>
         </div>
     </div>
+
+    <!-- MODAL AYUDA -->
+    @if (mostrarAyuda()) {
+        <div class="modal-overlay" (click)="toggleAyuda()">
+            <div class="modal-content gamer-card text-start" (click)="$event.stopPropagation()">
+                <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-3">
+                    <h4 class="text-info m-0 fw-bold">¿Cómo jugar al Ahorcado?</h4>
+                    <button class="btn-close-neon" (click)="toggleAyuda()">✖</button>
+                </div>
+                
+                <div class="text-light opacity-75" style="font-size: 0.95rem; line-height: 1.6;">
+                    <p class="mb-3">Tu objetivo es descubrir la <strong class="text-white">palabra secreta</strong> antes de quedarte sin vidas.</p>
+                    
+                    <ul class="lista-reglas mb-0">
+                        <li>Selecciona letras del teclado en pantalla.</li>
+                        <li>Si aciertas, la letra se revelará en la palabra.</li>
+                        <li>Si te equivocas, perderás una vida y se dibujará una parte del ahorcado.</li>
+                        <!-- COLORES RESPECTIVOS -->
+                        <li><strong class="text-success" style="text-shadow: 0 0 5px rgba(25, 135, 84, 0.5);">Ganas:</strong> Si completas la palabra.</li>
+                        <li><strong class="text-danger" style="text-shadow: 0 0 5px rgba(220, 53, 69, 0.5);">Pierdes:</strong> Si se acaban tus intentos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
 
     <!-- Tablero del Juego -->
     <div class="arcade-card neon-border mx-auto" style="max-width: 600px; border-radius: 20px;">
         <div class="arcade-card-content py-5">
         
+        <div class="d-flex justify-content-center mb-4 mt-2">
+            <!-- Usamos ngClass para que se ponga rojo brillante cuando queden 2 vidas o - -->
+            <pre class="ahorcado-ascii m-0" [ngClass]="intentosRestantes() <= 2 ? 'peligro' : 'seguro'">{{ obtenerDibujoAscii() }}</pre>
+        </div>
+
         <!-- Intentos Restantes -->
         <div class="mb-3">
             <h4 [ngClass]="intentosRestantes() > 2 ? 'text-info' : 'text-danger'" class="transicion-suave">
@@ -36,7 +70,7 @@
             </p>
         </div>
 
-        <!-- Palabra Oculta (LAS CAJAS DE LETRAS) -->
+        <!-- Palabra Oculta -->
         <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
             @for (letra of palabraOculta; track $index) {
             <div class="letra-caja shadow-sm" [ngClass]="{'descubierta': letra !== '_'}">
@@ -82,7 +116,6 @@
             </button>
             }
         </div>
-
         </div>
     </div>
 </div>

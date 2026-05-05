@@ -23,6 +23,9 @@ export class MayorMenorComponent implements OnInit {
   cartaActual = signal<Carta | null>(null);
   aciertos = signal<number>(0);
   estadoJuego = signal<'jugando' | 'perdido'>('jugando');
+  mostrarAyuda = signal<boolean>(false);
+  rachaActual = signal<number>(0);
+  intentos = signal<number>(1);
 
   private authService = inject(AuthService);
 
@@ -117,5 +120,9 @@ export class MayorMenorComponent implements OnInit {
         console.error("Error al guardar partida:", err);
       }
     }
+  }
+
+  toggleAyuda() {
+    this.mostrarAyuda.update(valor => !valor);
   }
 }

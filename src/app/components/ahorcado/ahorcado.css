@@ -162,7 +162,7 @@
 
 .panel-victoria .btn-reiniciar:hover {
     background: #00ff88;
-    color: #111; /* Texto oscuro para contrastar */
+    color: #111; 
     box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
     transform: scale(1.05);
 }
@@ -240,4 +240,39 @@
 @keyframes zoomIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
+}
+
+/* --- DIBUJO AHORCADO ASCII --- */
+.ahorcado-ascii {
+    font-family: 'Courier New', Courier, monospace; /* Fuente de terminal */
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.15;
+    text-align: left; /* Obligatorio para que no se deforme el ASCII */
+    background-color: rgba(10, 10, 15, 0.7);
+    border: 1px solid #2a2a3d;
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8); 
+    transition: all 0.3s ease;
+}
+
+/* Estado Seguro */
+.ahorcado-ascii.seguro {
+    color: #00d2ff;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+    border-color: rgba(0, 210, 255, 0.2);
+}
+
+/* Estado Peligro */
+.ahorcado-ascii.peligro {
+    color: #e94560;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.8);
+    border-color: #e94560;
+    animation: latidoPeligro 1s infinite alternate; /* Animación alerta */
+}
+
+@keyframes latidoPeligro {
+    from { box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 5px rgba(233, 69, 96, 0.2); }
+    to { box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 15px rgba(233, 69, 96, 0.6); }
 }
