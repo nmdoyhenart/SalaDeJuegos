@@ -14,9 +14,10 @@ import { AuthService } from '../../services/auth';
 export class RegistroComponent {
   registroForm: FormGroup;
   
-  // Transformamos las variables en Signals para evitar que la pantalla se congele
+  // Variables en Signals para evitar pantalla freeze
   mensajeError = signal<string>('');
   cargando = signal<boolean>(false);
+  mostrarPassword = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -24,12 +25,37 @@ export class RegistroComponent {
 
   constructor() {
     this.registroForm = this.fb.group({
-      nombre: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
-      edad: ['', [Validators.required, Validators.min(18)]],
-      correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      nombre: ['', [
+        Validators.required, 
+        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), // Solo letras y espacios
+        Validators.maxLength(50) // Límite de longitud
+      ]],
+      apellido: ['', [
+        Validators.required, 
+        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), // Solo letras y espacios
+        Validators.maxLength(50)
+      ]],
+      edad: ['', [
+        Validators.required, 
+        Validators.min(18), // 18+
+        Validators.max(99)
+      ]],
+      correo: ['', [
+        Validators.required, 
+        Validators.email // Formato correo@dominio.com
+      ]],
+      password: ['', [
+        Validators.required, 
+        Validators.minLength(6), // Seguridad mínima
+        Validators.maxLength(30)
+      ]]
     });
+  }
+
+  //  Este "getter" te permite acceder fácilmente a los controles en el HTML
+  // Ejemplo de uso en HTML: f['nombre'].errors?.['required']
+  get f() {
+    return this.registroForm.controls;
   }
 
   async onSubmit() {
@@ -38,7 +64,7 @@ export class RegistroComponent {
       return;
     }
 
-    // Encendemos el signal de carga y limpiamos errores
+    // Llamamos el signal de carga y limpiamos errores
     this.cargando.set(true);
     this.mensajeError.set('');
 
@@ -50,7 +76,7 @@ export class RegistroComponent {
       
       const mensaje = error?.message || '';
 
-      // Atrapamos tanto el error de Auth como el de Base de Datos (duplicate key)
+      // Atrapamos tanto el error de Auth como el de la BDD (duplicate key)
       if (mensaje.includes('already registered') || mensaje.includes('User already exists') || mensaje.includes('duplicate key')) {
         this.mensajeError.set('¡Este correo electrónico ya se encuentra registrado!');
       } else {
@@ -60,5 +86,9 @@ export class RegistroComponent {
       // Apagamos el signal de carga
       this.cargando.set(false);
     }
+  }
+
+  togglePassword() {
+    this.mostrarPassword.update(valor => !valor);
   }
 }
