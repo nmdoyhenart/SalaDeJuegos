@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -85,10 +85,10 @@ export class RegistroComponent {
       if (mensaje.includes('already registered') || mensaje.includes('User already exists') || mensaje.includes('duplicate key')) {
         this.mensajeError.set('¡Este correo electrónico ya se encuentra registrado!');
       } else {
-        this.mensajeError = 'Ocurrió un error al intentar registrarse.';
+        this.mensajeError.set('Ocurrió un error al intentar registrarse.');
       }
     } finally {
-      this.cargando = false;
+      this.cargando.set(false);
     }
   }
 

@@ -8,9 +8,9 @@
             <div class="card-body p-4">
             
             <!-- Mensaje de error si el usuario ya existe -->
-            @if (mensajeError) {
+            @if (mensajeError()) {
                 <div class="alert custom-alert-danger mb-4 text-center shadow-sm">
-                {{ mensajeError }}
+                {{ mensajeError() }}
                 </div>
             }
 
