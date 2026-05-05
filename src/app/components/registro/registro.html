@@ -15,41 +15,112 @@
             }
 
             <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-                
                 <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <label class="form-label text-accent">Nombre</label>
-                    <input type="text" class="form-control custom-input" formControlName="nombre" placeholder="Tu nombre">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label text-accent">Apellido</label>
-                    <input type="text" class="form-control custom-input" formControlName="apellido" placeholder="Tu apellido">
-                </div>
-                </div>
+                    <!-- NOMBRE -->
+                    <div class="col-md-6">
+                        <label class="form-label text-accent">Nombre</label>
+                        <input type="text" class="form-control custom-input" formControlName="nombre" placeholder="Tu nombre"
+                                [ngClass]="{ 'is-invalid': f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched) }">
+                        
+                        <!-- Mensajes de error Nombre -->
+                        @if (f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)) {
+                            <div class="text-danger mt-1 fw-bold" style="font-size: 0.8rem; text-shadow: 0 0 5px rgba(233,69,96,0.5);">
+                            @if (f['nombre'].errors?.['required']) { <span>* El nombre es obligatorio.</span> }
+                            @if (f['nombre'].errors?.['pattern']) { <span>* Solo se permiten letras.</span> }
+                            @if (f['nombre'].errors?.['maxlength']) { <span>* Máximo 50 caracteres.</span> }
+                            </div>
+                        }
+                    </div>
 
-                <div class="mb-3">
-                <label class="form-label text-accent">Edad</label>
-                <input type="number" class="form-control custom-input" formControlName="edad" placeholder="Tu edad">
-                </div>
+                    <!-- APELLIDO -->
+                    <div class="col-md-6">
+                        <label class="form-label text-accent">Apellido</label>
+                        <input type="text" class="form-control custom-input" formControlName="apellido" placeholder="Tu apellido"
+                                [ngClass]="{ 'is-invalid': f['apellido'].invalid && (f['apellido'].dirty || f['apellido'].touched) }">
+                        
+                        <!-- Mensajes de error Apellido -->
+                        @if (f['apellido'].invalid && (f['apellido'].dirty || f['apellido'].touched)) {
+                            <div class="text-danger mt-1 fw-bold" style="font-size: 0.8rem; text-shadow: 0 0 5px rgba(233,69,96,0.5);">
+                            @if (f['apellido'].errors?.['required']) { <span>* El apellido es obligatorio.</span> }
+                            @if (f['apellido'].errors?.['pattern']) { <span>* Solo se permiten letras.</span> }
+                            </div>
+                        }
+                    </div>
+                    </div>
 
-                <div class="mb-3">
-                <label class="form-label text-accent">Correo Electrónico</label>
-                <input type="email" class="form-control custom-input" formControlName="correo" placeholder="ejemplo@correo.com">
-                </div>
+                    <!-- EDAD -->
+                    <div class="mb-3">
+                    <label class="form-label text-accent">Edad</label>
+                    <input type="number" class="form-control custom-input" formControlName="edad" placeholder="Tu edad"
+                            [ngClass]="{ 'is-invalid': f['edad'].invalid && (f['edad'].dirty || f['edad'].touched) }">
+                    
+                    <!-- Mensajes de error Edad -->
+                    @if (f['edad'].invalid && (f['edad'].dirty || f['edad'].touched)) {
+                        <div class="text-danger mt-1 fw-bold" style="font-size: 0.8rem; text-shadow: 0 0 5px rgba(233,69,96,0.5);">
+                        @if (f['edad'].errors?.['required']) { <span>* La edad es obligatoria.</span> }
+                        @if (f['edad'].errors?.['min']) { <span>* Debes ser mayor de 18 años para ingresar.</span> }
+                        @if (f['edad'].errors?.['max']) { <span>* Ingresa una edad válida (menor a 99).</span> }
+                        </div>
+                    }
+                    </div>
 
-                <div class="mb-4">
-                <label class="form-label text-accent">Contraseña</label>
-                <input type="password" class="form-control custom-input" formControlName="password" placeholder="Mínimo 6 caracteres">
-                </div>
+                    <!-- CORREO -->
+                    <div class="mb-3">
+                    <label class="form-label text-accent">Correo Electrónico</label>
+                    <input type="email" class="form-control custom-input" formControlName="correo" placeholder="ejemplo@correo.com"
+                            [ngClass]="{ 'is-invalid': f['correo'].invalid && (f['correo'].dirty || f['correo'].touched) }">
+                    
+                    <!-- Mensajes de error Correo -->
+                    @if (f['correo'].invalid && (f['correo'].dirty || f['correo'].touched)) {
+                        <div class="text-danger mt-1 fw-bold" style="font-size: 0.8rem; text-shadow: 0 0 5px rgba(233,69,96,0.5);">
+                        @if (f['correo'].errors?.['required']) { <span>* El correo es obligatorio.</span> }
+                        @if (f['correo'].errors?.['email']) { <span>* El formato del correo no es válido.</span> }
+                        </div>
+                    }
+                    </div>
 
-                <button type="submit" class="btn btn-neon-red w-100 rounded-pill py-2 fw-bold" [disabled]="cargando || registroForm.invalid">
-                @if (cargando) {
-                    Registrando...
-                } @else {
-                    CREAR CUENTA
-                }
+                    <!-- CAMPO CONTRASEÑA -->
+                    <div class="mb-4">
+                        <label class="form-label text-accent">Contraseña</label>
+                        <div class="position-relative">
+                            <input [type]="mostrarPassword() ? 'text' : 'password'" class="form-control custom-input pr-5" formControlName="password" placeholder="Mínimo 6 caracteres"
+                                [ngClass]="{ 'is-invalid': f['password'].invalid && (f['password'].dirty || f['password'].touched) }">
+
+                            <button type="button" class="btn-ojo" (click)="togglePassword()" [title]="mostrarPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                                @if (mostrarPassword()) {
+                                    <!-- Ícono: Ojo Tachado (Ocultar) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    </svg>
+                                } @else {
+                                    <!-- Ícono: Ojo Abierto (Mostrar) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                }
+                            </button>
+                        </div>
+                        
+                        <!-- Mensajes de error Contraseña -->
+                        @if (f['password'].invalid && (f['password'].dirty || f['password'].touched)) {
+                            <div class="text-danger mt-1 fw-bold" style="font-size: 0.8rem; text-shadow: 0 0 5px rgba(233,69,96,0.5);">
+                                @if (f['password'].errors?.['required']) { <span>* La contraseña es obligatoria.</span> }
+                                @if (f['password'].errors?.['minlength']) { <span>* Debe tener al menos 6 caracteres.</span> }
+                                @if (f['password'].errors?.['maxlength']) { <span>* La contraseña no puede superar los 30 caracteres.</span> }
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Botón dinámico -->
+                    <button type="submit" class="btn btn-neon-red w-100 rounded-pill py-2 fw-bold" [disabled]="cargando() || registroForm.invalid">
+                    @if (cargando()) {
+                        Registrando...
+                    } @else {
+                        CREAR CUENTA
+                    }
                 </button>
-
             </form>
 
             <div class="text-center mt-4">

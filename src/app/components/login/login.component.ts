@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -13,24 +13,25 @@ import { AuthService } from '../../services/auth';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  mensajeError: string = '';
-  cargando: boolean = false;
+  
+  // Variables en Signals para evitar pantalla freeze
+  mensajeError = signal<string>('');
+  cargando = signal<boolean>(false);
+  mostrarPassword = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Reemplaza estos correos y claves por usuarios que hayas registrado de verdad
-  usuariosPrueba = [
-    { correo: 'adm@gmail.com', clave: '123456', etiqueta: 'Admin' }, 
-    { correo: 'ale@hotmail.com', clave: 'alejandra', etiqueta: 'Jugador 1' },
-  ];
-
   constructor() {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.maxLength(30)]] // No está vacío
     });
+  }
+
+  get f() {
+    return this.loginForm.controls;
   }
 
   async onSubmit() {
@@ -39,28 +40,48 @@ export class LoginComponent {
       return;
     }
 
-    this.cargando = true;
-    this.mensajeError = '';
+    this.cargando.set(true);
+    this.mensajeError.set('');
 
     try {
-      const { correo, password } = this.loginForm.value;
-      await this.authService.iniciarSesion(correo, password);
+      const correo = this.loginForm.value.correo;
+      const contrasena = this.loginForm.value.password;
+
+      await this.authService.iniciarSesion(correo, contrasena);
       
-      // Si las credenciales son correctas, navegamos al Home
       this.router.navigate(['/home']);
     } catch (error: any) {
       console.error('Error al iniciar sesión:', error);
-      this.mensajeError = 'Credenciales incorrectas. Por favor, verifica tu correo y contraseña.';
+      
+      const mensaje = error?.message || '';
+
+      // Atrapamos el error de 'contraseña incorrecta'
+      if (mensaje.includes('Invalid login credentials') || mensaje.includes('Invalid')) {
+        this.mensajeError.set('Correo o contraseña incorrectos.');
+      } else {
+        this.mensajeError.set('Ocurrió un error al intentar iniciar sesión.');
+      }
     } finally {
-      this.cargando = false;
+      this.cargando.set(false);
     }
   }
 
-  // Método para el llenado rápido
-  accesoRapido(usuario: any) {
-    this.loginForm.patchValue({
-      correo: usuario.correo,
-      password: usuario.clave
-    });
+  // Función para autocompletar el formulario rápidamente
+  cargarUsuarioPrueba(opcion: number) {
+    switch (opcion) {
+      case 1:
+        this.loginForm.patchValue({ correo: 'pablojuan@gmail.com', password: 'juanpablo' });
+        break;
+      case 2:
+        this.loginForm.patchValue({ correo: 'santif@gmail.com', password: 'santino' });
+        break;
+      case 3:
+        this.loginForm.patchValue({ correo: 'logomez@gmail.com', password: 'lorenzo' });
+        break;
+    }
+  }
+
+  togglePassword() {
+    this.mostrarPassword.update(valor => !valor);
   }
 }
