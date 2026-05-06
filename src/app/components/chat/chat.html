@@ -1,0 +1,61 @@
+<div class="container mt-4 mb-5">
+    <div class="chat-wrapper mx-auto arcade-card neon-border">
+        
+        <!-- Encabezado del Chat -->
+        <div class="chat-header text-center py-3 border-bottom border-secondary">
+        <h2 class="titulo-cyberpunk m-0 fs-3">SALA GLOBAL</h2>
+        <span class="text-success font-monospace" style="font-size: 0.8rem;">> CONEXIÓN_ESTABLECIDA</span>
+        </div>
+
+        <!-- Contenedor de los Mensajes -->
+        <div id="chat-container" class="chat-body p-3 p-md-4">
+        @for (msg of mensajes(); track msg.id) {
+            
+            <!-- VERIFICACIÓN: ¿Es mi mensaje o el de otro? -->
+            <div class="mensaje-fila d-flex mb-3" 
+                [ngClass]="msg.emisor === usuarioActual() ? 'justify-content-end' : 'justify-content-start'">
+            
+            <div class="burbuja-chat" 
+                [ngClass]="msg.emisor === usuarioActual() ? 'mi-mensaje' : 'otro-mensaje'">
+                
+                <!-- Remitente (Solo lo mostramos si no soy yo) -->
+                @if (msg.emisor !== usuarioActual()) {
+                <div class="remitente font-monospace">{{ msg.emisor }}</div>
+                } @else {
+                <div class="remitente mi-nombre font-monospace">Tú</div>
+                }
+
+                <!-- Texto del Mensaje -->
+                <div class="texto-mensaje">{{ msg.texto }}</div>
+                
+                <!-- Hora de envío -->
+                <div class="hora-mensaje text-end mt-1 font-monospace">
+                {{ msg.created_at | date:'HH:mm' }}
+                </div>
+            </div>
+
+            </div>
+
+        } @empty {
+            <div class="text-center text-secondary font-monospace mt-5">
+            > NO_HAY_MENSAJES. SÉ EL PRIMERO EN HABLAR_
+            </div>
+        }
+        </div>
+
+        <!-- Zona de Input -->
+        <div class="chat-footer p-3 border-top border-secondary">
+        <div class="input-group">
+            <input type="text" class="form-control custom-input chat-input" 
+                placeholder="Escribe un mensaje..."
+                [ngModel]="nuevoMensaje()"
+                (ngModelChange)="nuevoMensaje.set($event)"
+                (keyup.enter)="enviar()">
+                
+            <button class="btn btn-enviar fw-bold" (click)="enviar()">
+            ENVIAR
+            </button>
+        </div>
+        </div>
+    </div>
+</div>

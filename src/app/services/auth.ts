@@ -116,4 +116,17 @@ export class AuthService {
   get client(): SupabaseClient {
     return this.supabase;
   }
+
+  async obtenerUsuarioActual(): Promise<string> {
+    const perfil = this.perfilActivo.getValue();
+    const usuario = this.usuarioActivo.getValue();
+
+    if (perfil && perfil.nombre) {
+      return perfil.nombre; // Muestra el nombre ("Santino")
+    } else if (usuario && usuario.email) {
+      return usuario.email; // Si no hay nombre, muestra el correo
+    }
+    
+    return 'Jugador Desconocido';
+  }
 }
