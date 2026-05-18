@@ -73,7 +73,7 @@
     color: #e94560;
 }
 
-* --- INPUT Y BOTÓN --- */
+/* --- INPUT Y BOTÓN --- */
 .chat-input {
     background-color: rgba(0,0,0,0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important; 
