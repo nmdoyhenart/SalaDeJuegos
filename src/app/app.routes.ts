@@ -10,7 +10,7 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent },
     { path: 'quien-soy', component: QuienSoyComponent },
     // Ruta por defecto que redirige al Home
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/', pathMatch: 'full' },
     // Ruta comodín para manejar errores 404
-    { path: '**', redirectTo: '/home' }
+    { path: '**', redirectTo: '/' }
 ];
