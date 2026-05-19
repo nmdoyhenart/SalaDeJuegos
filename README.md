@@ -96,4 +96,80 @@ GitHub Users API:
 https://api.github.com/users/nmdoyhenart
 ```
 
+---
+
+# ✅ Sprint #2
+
+## Objetivos
+
+- [ ] Implementar autenticación completa
+- [ ] Mejorar comportamiento dinámico del Home
+- [ ] Implementar login rápido
+- [ ] Completar lógica de registro
+- [ ] Manejo de sesiones
+- [ ] Validaciones y mensajes de error
+
+---
+
+# 🧩 Funcionalidades desarrolladas
+
+## ✅ Home / Bienvenida
+
+- Acceso centralizado a juegos y listados.
+- Navegación principal de la aplicación.
+
+### Comportamiento según autenticación
+
+#### Usuario NO logueado
+- Mostrar botón de:
+  - Login
+  - Registro
+
+#### Usuario logueado
+- Mostrar:
+  - Nombre del usuario
+  - Botón de cerrar sesión
+
+---
+
+## ✅ Inicio de Sesión
+
+### Funcionalidades
+- Validación contra Supabase/Firebase.
+- Inicio de sesión mediante:
+  - Email
+  - Contraseña
+
+### Comportamiento
+- Login exitoso:
+  - Redirección automática al Home.
+
+- Login fallido:
+  - Mostrar mensaje de error correspondiente.
+
+### Login rápido
+La pantalla contará con:
+- 3 botones de acceso rápido
+- Usuarios preconfigurados para pruebas ágiles
+
+---
+
+## ✅ Registro de Usuarios
+
+### Datos solicitados
+- Nombre
+- Apellido
+- Edad
+- Correo electrónico
+- Contraseña
+
+### Funcionalidades
+- Creación de usuario en Authentication.
+- Guardado de datos en base de datos.
+- Inicio automático de sesión luego del registro.
+- Redirección automática al Home.
+- Validación de usuario ya registrado.
+
+> ⚠️ La contraseña NO se almacena en la base de datos.
+
 # Desarollado por: Nicolás Doyhenart - 2026
