@@ -1,0 +1,183 @@
+/* =========================
+    ESTILOS GENERALES
+========================= */
+
+.gamer-card {
+    background-color: #161625;
+    border: 1px solid #2a2a3d;
+    border-radius: 12px;
+    color: #eaeaea;
+}
+
+.custom-card-header {
+    background: linear-gradient(90deg, #e94560 0%, #900c3f 100%);
+    color: white;
+    border-top-left-radius: 11px !important;
+    border-top-right-radius: 11px !important;
+    border-bottom: none;
+}
+
+.text-accent {
+    color: #e94560;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* =========================
+    INPUTS
+========================= */
+
+.custom-input {
+    background-color: #0d0d14;
+    border: 1px solid #2a2a3d;
+    color: #eaeaea;
+}
+
+.custom-input:focus {
+    background-color: #1a1a2e;
+    border-color: #e94560;
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+    color: white;
+}
+
+.custom-input.pr-5 {
+    padding-right: 45px !important;
+}
+
+.custom-input.pr-5.is-invalid {
+    background-image: none !important;
+}
+
+/* =========================
+    BOTONES
+========================= */
+
+.btn-neon-red {
+    background-color: transparent;
+    color: #e94560;
+    border: 2px solid #e94560;
+    transition: all 0.3s ease;
+}
+
+.btn-neon-red:hover:not(:disabled) {
+    background-color: #e94560;
+    color: white;
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+}
+
+.btn-neon-red:disabled {
+    border-color: #555;
+    color: #555;
+    cursor: not-allowed;
+}
+
+/* =========================
+    ALERTAS
+========================= */
+
+.custom-alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid #dc3545;
+    color: #ff7682;
+}
+
+/* =========================
+    BOTONES RÁPIDOS
+========================= */
+
+.quick-btn {
+    transition: all 0.3s ease;
+    border-width: 2px;
+}
+
+.quick-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+    BOTÓN MOSTRAR CONTRASEÑA
+========================= */
+
+.btn-ojo {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #8b8b99;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-ojo:hover {
+    color: #00ff88;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.btn-ojo:focus {
+    outline: none;
+}
+
+/* =========================
+    BOTONES TESTING
+========================= */
+
+.btn-prueba {
+    flex: 1;
+    background: transparent;
+    border-radius: 20px;
+    padding: 10px 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Verde */
+.btn-test-1 {
+    color: #00ff88;
+    border: 1px solid #00ff88;
+}
+
+.btn-test-1:hover {
+    background: #00ff88;
+    color: #111;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Celeste */
+.btn-test-2 {
+    color: #00d2ff;
+    border: 1px solid #00d2ff;
+}
+
+.btn-test-2:hover {
+    background: #00d2ff;
+    color: #111;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Amarillo */
+.btn-test-3 {
+    color: #fbd786;
+    border: 1px solid #fbd786;
+}
+
+.btn-test-3:hover {
+    background: #fbd786;
+    color: #111;
+    box-shadow: 0 0 10px rgba(251, 215, 134, 0.5);
+    transform: translateY(-2px);
+}
