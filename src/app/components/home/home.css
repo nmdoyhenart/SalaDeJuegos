@@ -1,7 +1,3 @@
-/* =========================
-    ESTILOS GENERALES
-========================= */
-
 .gamer-card {
     background-color: #161625;
     border: 1px solid #2a2a3d;
@@ -25,16 +21,11 @@
     letter-spacing: 1px;
 }
 
-/* =========================
-    INPUTS
-========================= */
-
 .custom-input {
     background-color: #0d0d14;
     border: 1px solid #2a2a3d;
     color: #eaeaea;
 }
-
 .custom-input:focus {
     background-color: #1a1a2e;
     border-color: #e94560;
@@ -42,32 +33,22 @@
     color: white;
 }
 
-/* =========================
-    BOTONES
-========================= */
-
 .btn-neon-red {
     background-color: transparent;
     color: #e94560;
     border: 2px solid #e94560;
     transition: all 0.3s ease;
 }
-
 .btn-neon-red:hover:not(:disabled) {
     background-color: #e94560;
     color: white;
     box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
 }
-
 .btn-neon-red:disabled {
     border-color: #555;
     color: #555;
     cursor: not-allowed;
 }
-
-/* =========================
-    ALERTAS
-========================= */
 
 .custom-alert-danger {
     background-color: rgba(220, 53, 69, 0.1);
@@ -75,35 +56,20 @@
     color: #ff7682;
 }
 
-/* =========================
-    BOTONES RÁPIDOS
-========================= */
-
+/* Efecto para los botones de acceso rápido */
 .quick-btn {
     transition: all 0.3s ease;
     border-width: 2px;
 }
-
 .quick-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
 
-/* =========================
-    TRACKING
-========================= */
+cards
 
-.tracking-wider {
-    letter-spacing: 2px;
-}
-
-.tracking-widest {
-    letter-spacing: 4px;
-}
-
-/* =========================
-    TARJETAS ARCADE
-========================= */
+.tracking-wider { letter-spacing: 2px; }
+.tracking-widest { letter-spacing: 4px; }
 
 .arcade-card {
     border-radius: 24px;
@@ -113,8 +79,22 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Efecto de borde animado para tarjetas activas */
+.neon-border {
+    background: linear-gradient(45deg, #e94560, #900c3f, #161625, #e94560);
+    background-size: 300% 300%;
+    animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Fondo interno de la tarjeta */
 .arcade-card-content {
-    background-color: #11111a;
+    background-color: #11111a; /* Tono un más oscuro que el fondo */
     border-radius: 21px;
     padding: 30px 20px;
     height: 100%;
@@ -122,63 +102,23 @@
     flex-direction: column;
 }
 
-/* =========================
-    BORDE NEÓN
-========================= */
-
-.neon-border {
-    background: linear-gradient(
-        45deg,
-        #e94560,
-        #900c3f,
-        #161625,
-        #e94560
-    );
-
-    background-size: 300% 300%;
-    animation: gradientMove 5s ease infinite;
-}
-
-@keyframes gradientMove {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* =========================
-    HOVER TARJETAS
-========================= */
-
+/* Efecto Hover */
 .arcade-card.neon-border:hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: 0 20px 40px rgba(233, 69, 96, 0.35);
 }
 
-/* =========================
-    ÍCONOS
-========================= */
-
-.icon-container img {
-    transition: all 0.3s ease;
-}
-
+/* El ícono flota cuando pasas el mouse */
 .arcade-card.neon-border:hover .icon-container img {
     transform: scale(1.1) translateY(-5px);
     filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.8));
 }
 
-/* =========================
-    BOTÓN ARCADE
-========================= */
+.icon-container img {
+    transition: all 0.3s ease;
+}
 
+/* --- BOTÓN ARCADE --- */
 .btn-arcade {
     background: transparent;
     color: #e94560;
@@ -201,10 +141,7 @@
     transform: scale(1.05);
 }
 
-/* =========================
-    TARJETA BLOQUEADA
-========================= */
-
+/* --- TARJETA BLOQUEADA (PRÓXIMO JUEGO) --- */
 .arcade-card.locked {
     background: transparent;
     border: 2px dashed #2a2a3d;
@@ -219,7 +156,7 @@
 }
 
 .arcade-card.locked:hover {
-    transform: none;
+    transform: none; /* No se mueve */
     cursor: not-allowed;
     opacity: 0.8;
     border-color: #e94560;

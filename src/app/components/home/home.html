@@ -1,17 +1,105 @@
 <div class="container mt-5 mb-5 text-center">
     <div class="mb-5">
-        <h1 class="display-3 fw-bold text-white" style="text-shadow: 0 0 15px rgba(233,69,96,0.8);">ARCADE <span style="color: #e94560;">444</span></h1>
+    <h1 class="display-3 fw-bold text-white" style="text-shadow: 0 0 15px rgba(233,69,96,0.8);">
+        ARCADE <span style="color: #e94560;">444</span>
+    </h1>
         <p class="lead text-light opacity-75">Bienvenido al mejor Playroom de LATAM</p>
     </div>
 
-    <div class="card gamer-card shadow-lg mx-auto mb-5" style="max-width: 500px;">
+    @if (!usuarioLogueado) {
+        <!-- VISTA INVITADO -->
+        <div class="card gamer-card shadow-lg mx-auto" style="max-width: 500px;">
         <div class="card-body p-5">
             <h3 class="text-accent mb-4">¿Estás listo para jugar?</h3>
             <p class="text-light mb-4 opacity-75">Inicia sesión o crea una cuenta para acceder a nuestros minijuegos y competir contra los mejores.</p>
             <div class="d-grid gap-3">
-                <a routerLink="/login" class="btn btn-neon-red py-3 fw-bold rounded-pill">INICIAR SESIÓN</a>
-                <a routerLink="/registro" class="btn btn-outline-info py-3 fw-bold rounded-pill">CREAR CUENTA</a>
+            <a routerLink="/login" class="btn btn-neon-red py-3 fw-bold rounded-pill">INICIAR SESIÓN</a>
+            <a routerLink="/registro" class="btn btn-outline-info py-3 fw-bold rounded-pill">CREAR CUENTA</a>
             </div>
         </div>
-    </div>
+        </div>
+    } @else {
+        <!-- VISTA USUARIO LOGUEADO -->
+        <div class="mb-5 text-center mt-4">
+            <h3 class="text-light fw-light">
+                ¡Comienza tu nuevo episodio <span style="color: #e94560; font-weight: bold; text-shadow: 0 0 10px rgba(233,69,96,0.5);"> {{ perfilJugador()?.nombre }}</span>!
+            </h3>
+        </div>
+
+        <h3 class="text-accent mb-5 text-center mt-5 tracking-widest" style="font-weight: 600;">
+        SELECCIONA TU AVENTURA
+        </h3>
+
+        <!-- Usamos g-4 para espaciado perfecto y col-lg-5 para que queden 2x2 centradas -->
+        <div class="row justify-content-center g-4 mb-5">
+        
+        <!-- TARJETA 1: SNAKE (Bloqueada) -->
+        <div class="col-md-6 col-lg-5">
+            <div class="arcade-card locked h-100" style="border-radius: 50px 5px 50px 5px;">
+            <div class="arcade-card-content text-center d-flex flex-column justify-content-center" style="border-radius: 47px 2px 47px 2px; position: relative;">
+
+                <div class="mb-4 mt-3">
+                <span class="question-mark" style="font-size: 3.5rem; opacity: 0.5;">🐍</span>
+                </div>
+
+                <h2 class="text-secondary fw-bold mb-3 tracking-wider">SNAKE</h2>
+                <p class="text-secondary opacity-50 mb-0 px-3" style="font-size: 0.95rem;">
+                En desarrollo para el próximo sprint...
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 2: MAYOR O MENOR (Bloqueada) -->
+        <div class="col-md-6 col-lg-5">
+            <div class="arcade-card locked h-100" style="border-radius: 5px 50px 5px 50px;">
+            <div class="arcade-card-content text-center d-flex flex-column justify-content-center" style="border-radius: 2px 47px 2px 47px; position: relative;">
+
+                <div class="mb-4 mt-3">
+                <span class="question-mark" style="font-size: 3.5rem; opacity: 0.5;">🃏</span>
+                </div>
+
+                <h2 class="text-secondary fw-bold mb-3 tracking-wider">MAYOR O MENOR</h2>
+                <p class="text-secondary opacity-50 mb-0 px-3" style="font-size: 0.95rem;">
+                En desarrollo para el próximo sprint...
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 3: AHORCADO (Bloqueada) -->
+        <div class="col-md-6 col-lg-5">
+            <div class="arcade-card locked h-100" style="border-radius: 5px 50px 5px 50px;">
+            <div class="arcade-card-content text-center d-flex flex-column justify-content-center" style="border-radius: 2px 47px 2px 47px; position: relative;">
+
+                <div class="mb-4 mt-3">
+                <span class="question-mark" style="font-size: 3.5rem; opacity: 0.5;">🔤</span>
+                </div>
+
+                <h2 class="text-secondary fw-bold mb-3 tracking-wider">AHORCADO</h2>
+                <p class="text-secondary opacity-50 mb-0 px-3" style="font-size: 0.95rem;">
+                En desarrollo para el próximo sprint...
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 4: PREGUNTADOS (Bloqueada) -->
+        <div class="col-md-6 col-lg-5">
+            <div class="arcade-card locked h-100" style="border-radius: 50px 5px 50px 5px;">
+            <div class="arcade-card-content text-center d-flex flex-column justify-content-center" style="border-radius: 47px 2px 47px 2px; position: relative;">
+
+                <div class="mb-4 mt-3">
+                <span class="question-mark" style="font-size: 3.5rem; opacity: 0.5;">❓</span>
+                </div>
+
+                <h2 class="text-secondary fw-bold mb-3 tracking-wider">PREGUNTADOS</h2>
+                <p class="text-secondary opacity-50 mb-0 px-3" style="font-size: 0.95rem;">
+                En desarrollo para el próximo sprint...
+                </p>
+            </div>
+            </div>
+        </div>
+        </div>
+    }
 </div>
