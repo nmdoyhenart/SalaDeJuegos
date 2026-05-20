@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { AuthService } from './services/auth'; // Verifica que la ruta coincida con tu carpeta
+import { AuthService } from './services/auth.service'; // Verifica que la ruta coincida con tu carpeta
 
 @Component({
   selector: 'app-root',

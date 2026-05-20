@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth';
+import { RegistroService } from '../../services/registro.service';
 
 @Component({
   selector: 'app-registro',
@@ -14,46 +14,24 @@ import { AuthService } from '../../services/auth';
 export class RegistroComponent {
   registroForm: FormGroup;
   
-  // Variables en Signals para evitar pantalla freeze
   mensajeError = signal<string>('');
   cargando = signal<boolean>(false);
   mostrarPassword = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private registroService = inject(RegistroService);
   private router = inject(Router);
 
   constructor() {
     this.registroForm = this.fb.group({
-      nombre: ['', [
-        Validators.required, 
-        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), // Solo letras y espacios
-        Validators.maxLength(50) // Límite de longitud
-      ]],
-      apellido: ['', [
-        Validators.required, 
-        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), // Solo letras y espacios
-        Validators.maxLength(50)
-      ]],
-      edad: ['', [
-        Validators.required, 
-        Validators.min(18), // 18+
-        Validators.max(99)
-      ]],
-      correo: ['', [
-        Validators.required, 
-        Validators.email // Formato correo@dominio.com
-      ]],
-      password: ['', [
-        Validators.required, 
-        Validators.minLength(6), // Seguridad mínima
-        Validators.maxLength(30)
-      ]]
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), Validators.maxLength(50)]],
+      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$'), Validators.maxLength(50)]],
+      edad: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
+      correo: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]]
     });
   }
 
-  //  Este "getter" te permite acceder fácilmente a los controles en el HTML
-  // Ejemplo de uso en HTML: f['nombre'].errors?.['required']
   get f() {
     return this.registroForm.controls;
   }
@@ -64,26 +42,16 @@ export class RegistroComponent {
       return;
     }
 
-    // Llamamos el signal de carga y limpiamos errores
     this.cargando.set(true);
     this.mensajeError.set('');
 
     try {
-      await this.authService.registrarUsuario(this.registroForm.value);
+      await this.registroService.procesarRegistro(this.registroForm.value);
+      
       this.router.navigate(['/home']);
     } catch (error: any) {
-      console.error('Error crudo devuelto:', error);
-      
-      const mensaje = error?.message || '';
-
-      // Atrapamos tanto el error de Auth como el de la BDD (duplicate key)
-      if (mensaje.includes('already registered') || mensaje.includes('User already exists') || mensaje.includes('duplicate key')) {
-        this.mensajeError.set('¡Este correo electrónico ya se encuentra registrado!');
-      } else {
-        this.mensajeError.set('Ocurrió un error al intentar registrarse. Inténtalo de nuevo.');
-      }
+      this.mensajeError.set(error.message); // El servicio ya devolvió el error y solo lo mostramos
     } finally {
-      // Apagamos el signal de carga
       this.cargando.set(false);
     }
   }

@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +14,18 @@ import { AuthService } from '../../services/auth';
 export class LoginComponent {
   loginForm: FormGroup;
   
-  // Variables en Signals para evitar pantalla freeze
   mensajeError = signal<string>('');
   cargando = signal<boolean>(false);
   mostrarPassword = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private loginService = inject(LoginService);
   private router = inject(Router);
 
   constructor() {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.maxLength(30)]] // No está vacío
+      password: ['', [Validators.required, Validators.maxLength(30)]]
     });
   }
 
@@ -44,29 +43,16 @@ export class LoginComponent {
     this.mensajeError.set('');
 
     try {
-      const correo = this.loginForm.value.correo;
-      const contrasena = this.loginForm.value.password;
-
-      await this.authService.iniciarSesion(correo, contrasena);
+      await this.loginService.procesarLogin(this.loginForm.value);
       
       this.router.navigate(['/home']);
     } catch (error: any) {
-      console.error('Error al iniciar sesión:', error);
-      
-      const mensaje = error?.message || '';
-
-      // Atrapamos el error de 'contraseña incorrecta'
-      if (mensaje.includes('Invalid login credentials') || mensaje.includes('Invalid')) {
-        this.mensajeError.set('Correo o contraseña incorrectos.');
-      } else {
-        this.mensajeError.set('Ocurrió un error al intentar iniciar sesión.');
-      }
+      this.mensajeError.set(error.message); // Si el servicio lanza un error lo mostramos
     } finally {
       this.cargando.set(false);
     }
   }
 
-  // Función para autocompletar el formulario rápidamente
   cargarUsuarioPrueba(opcion: number) {
     switch (opcion) {
       case 1:

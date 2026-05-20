@@ -3,8 +3,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';   
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ChatService } from '../../services/chat'; 
-import { AuthService } from '../../services/auth'; 
+import { ChatService } from '../../services/chat.service'; 
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-chat',
