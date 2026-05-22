@@ -1,5 +1,4 @@
 <div class="container position-relative text-center mt-5 mb-5">
-    <!-- BOTÓN AYUDA -->
     <button class="btn-ayuda position-absolute" style="top: 0; right: 15px;" (click)="toggleAyuda()" title="¿Cómo jugar?">
         ?
     </button>
@@ -7,7 +6,6 @@
         <h1 class="titulo-cyberpunk">EL AHORCADO</h1>
         <div class="linea-energia"></div>
 
-        <!-- Subtítulo Dinámico de Terminal -->
         <div class="mt-3">
             <span class="font-monospace fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">
                 @if (estadoJuego() === 'jugando') {
@@ -21,7 +19,6 @@
         </div>
     </div>
 
-    <!-- MODAL AYUDA -->
     @if (mostrarAyuda()) {
         <div class="modal-overlay" (click)="toggleAyuda()">
             <div class="modal-content gamer-card text-start" (click)="$event.stopPropagation()">
@@ -37,7 +34,6 @@
                         <li>Selecciona letras del teclado en pantalla.</li>
                         <li>Si aciertas, la letra se revelará en la palabra.</li>
                         <li>Si te equivocas, perderás una vida y se dibujará una parte del ahorcado.</li>
-                        <!-- COLORES RESPECTIVOS -->
                         <li><strong class="text-success" style="text-shadow: 0 0 5px rgba(25, 135, 84, 0.5);">Ganas:</strong> Si completas la palabra.</li>
                         <li><strong class="text-danger" style="text-shadow: 0 0 5px rgba(220, 53, 69, 0.5);">Pierdes:</strong> Si se acaban tus intentos.</li>
                     </ul>
@@ -46,40 +42,34 @@
         </div>
     }
 
-    <!-- Tablero del Juego -->
     <div class="arcade-card neon-border mx-auto" style="max-width: 600px; border-radius: 20px;">
         <div class="arcade-card-content py-5">
         
         <div class="d-flex justify-content-center mb-4 mt-2">
-            <!-- Usamos ngClass para que se ponga rojo brillante cuando queden 2 vidas o - -->
-            <pre class="ahorcado-ascii m-0" [ngClass]="intentosRestantes() <= 2 ? 'peligro' : 'seguro'">{{ obtenerDibujoAscii() }}</pre>
+            <pre class="ahorcado-ascii m-0" [ngClass]="intentosRestantes() <= 2 ? 'peligro' : 'seguro'">{{ dibujoAscii() }}</pre>
         </div>
 
-        <!-- Intentos Restantes -->
         <div class="mb-3">
             <h4 [ngClass]="intentosRestantes() > 2 ? 'text-info' : 'text-danger'" class="transicion-suave">
             Vidas restantes: <strong>{{ intentosRestantes() }}</strong> / 6
             </h4>
         </div>
 
-        <!-- Pista del Juego -->
         <div class="pista-container mb-4">
             <span class="badge badge-neon text-dark mb-2">PISTA</span>
             <p class="text-warning fst-italic tracking-wider mb-0" style="font-size: 1.1rem;">
-            "{{ pistaActual }}"
+            "{{ pistaActual() }}"
             </p>
         </div>
 
-        <!-- Palabra Oculta -->
         <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
-            @for (letra of palabraOculta; track $index) {
+            @for (letra of palabraOculta(); track $index) {
             <div class="letra-caja shadow-sm" [ngClass]="{'descubierta': letra !== '_'}">
                 {{ letra !== '_' ? letra : '' }}
             </div>
             }
         </div>
 
-        <!-- Pantalla de Fin de Juego -->
         @if (estadoJuego() !== 'jugando') {
             <div class="resultado-pantalla mb-4 p-4 mx-auto" 
                 [ngClass]="estadoJuego() === 'ganado' ? 'panel-victoria' : 'panel-derrota'">
@@ -99,18 +89,17 @@
                 <p class="text-light fs-5 mb-4">¡Adivinaste la palabra secreta!</p>
             }
 
-            <button class="btn-reiniciar" (click)="iniciarJuego()">
+            <button class="btn-reiniciar" (click)="reiniciarJuego()">
                 JUGAR DE NUEVO
             </button>
             </div>
         }
 
-        <!-- Teclado Virtual (SIEMPRE VISIBLE) -->
         <div class="teclado d-flex justify-content-center flex-wrap gap-2 px-2 animacion-entrada mt-2">
             @for (letra of abecedario; track letra) {
             <button class="btn-tecla" 
-                    [disabled]="letrasUsadas.includes(letra) || estadoJuego() !== 'jugando'"
-                    [ngClass]="{'usada': letrasUsadas.includes(letra)}"
+                    [disabled]="letrasUsadas().includes(letra) || estadoJuego() !== 'jugando'"
+                    [ngClass]="{'usada': letrasUsadas().includes(letra)}"
                     (click)="presionarLetra(letra)">
                 {{ letra }}
             </button>
