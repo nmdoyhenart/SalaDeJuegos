@@ -1,0 +1,270 @@
+/* --- ESTRUCTURA GENERAL --- */
+.chat-wrapper {
+    max-width: 800px;
+    background-color: #11111a;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 70vh; /* Ocupa el 70% de la pantalla */
+    overflow: hidden;
+}
+
+.chat-body {
+    flex-grow: 1;
+    overflow-y: auto; /* Permite scrollear */
+    background: radial-gradient(circle at center, #161625 0%, #0a0a0f 100%);
+}
+
+/* Ocultar barra de scroll */
+.chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-body::-webkit-scrollbar-thumb {
+    background: #2a2a3d;
+    border-radius: 10px;
+}
+
+/* --- BURBUJAS DE CHAT --- */
+.burbuja-chat {
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.remitente {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.texto-mensaje {
+    font-size: 0.95rem;
+    color: #f0f0f5;
+    line-height: 1.4;
+}
+
+.hora-mensaje {
+    font-size: 0.65rem;
+    opacity: 0.6;
+}
+
+/* --- ESTILO: MIS MENSAJES --- */
+.mi-mensaje {
+    background-color: rgba(0, 210, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.4);
+    border-bottom-right-radius: 2px;
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.05);
+}
+
+.mi-mensaje .mi-nombre {
+    color: #00d2ff;
+}
+
+/* --- ESTILO: MENSAJES DE OTROS --- */
+.otro-mensaje {
+    background-color: rgba(233, 69, 96, 0.05);
+    border: 1px solid rgba(233, 69, 96, 0.3);
+    border-bottom-left-radius: 2px;
+}
+
+.otro-mensaje .remitente {
+    color: #e94560;
+}
+
+/* --- INPUT Y BOTÓN --- */
+.chat-input {
+    background-color: rgba(0,0,0,0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; 
+    /* Borramos el borde derecho para que se fusione con el botón */
+    border-right: none !important; 
+    border-radius: 30px 0 0 30px !important;
+    color: #fff !important; 
+}
+
+/* Sacamos el borde azul que pone Bootstrap */
+.chat-input {
+    background-color: transparent !important; /* Eliminamos fondo blanco */
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; 
+    border-right: none !important; 
+    border-radius: 30px 0 0 30px !important;
+}
+
+/* El estado "focus" es cuando hacés clic para escribir */
+.chat-input:focus {
+    background-color: transparent !important; /* Para que no se ponga blanco al escribir */
+    color: #fff !important;
+    box-shadow: none !important; /* Sacar resplandor azul de Bootstrap */
+    border-color: rgba(255, 255, 255, 0.2) !important; 
+}
+
+.chat-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-enviar {
+    background: transparent;
+    color: #00ff88;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; 
+    /* Borramos el borde izquierdo para la fusión */
+    border-left: none !important; 
+    border-radius: 0 30px 30px 0 !important;
+    padding: 0 25px;
+    margin-left: 0 !important; /* Evita que Bootstrap separe los elementos */
+    transition: all 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    /* Al pasar el mouse, iluminamos los bordes pero mantenemos la fusión */
+    border-color: #00ff88 !important;
+    border-left: none !important;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+/* --- BLOQUEO PARA INVITADOS Y EFECTO BLUR --- */
+.position-relative {
+    position: relative;
+}
+
+.chat-contenido-interno {
+    transition: filter 0.4s ease;
+}
+
+/* Difumina todo el chat y desactiva los clics/teclado */
+.blur-efecto {
+    filter: blur(8px) grayscale(0.5); /* Borroso y un poco desaturado */
+    pointer-events: none; /* Nadie puede hacer clic en los inputs */
+    user-select: none; /* Nadie puede copiar el texto */
+}
+
+/* Cartel superpuesto */
+.chat-bloqueado-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 15, 0.65); /* Oscurece el fondo borroso */
+    z-index: 50; /* Lo pone por encima de los mensajes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* El panel principal de la alerta */
+.alerta-sistema {
+    background: rgba(10, 5, 10, 0.85);
+    border: 2px solid #e94560;
+    border-radius: 4px; 
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.4), inset 0 0 15px rgba(233, 69, 96, 0.2);
+    backdrop-filter: blur(5px);
+    animation: entradaAlerta 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, latidoPeligro 2s infinite alternate;
+    position: relative;
+    overflow: hidden;
+    }
+
+/* Efecto de "Scanline" sutil de fondo */
+.alerta-sistema::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(233, 69, 96, 0.05) 2px, rgba(233, 69, 96, 0.05) 4px);
+    pointer-events: none;
+}
+
+.icono-peligro {
+    font-size: 3rem;
+    color: #e94560;
+    text-shadow: 0 0 15px #e94560;
+    line-height: 1;
+}
+
+.titulo-alerta {
+    color: #ff2a2a;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 42, 42, 0.8);
+}
+
+.cursor-titilante {
+    animation: parpadeo 1s step-end infinite;
+}
+
+.texto-consola {
+    font-family: 'Courier New', Courier, monospace;
+    color: #a0a0b0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* --- BOTONES --- */
+.btn-hacker {
+    display: inline-block;
+    padding: 10px 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 0; /* Sin redondear para look retro */
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón Rojo (Login) */
+.btn-rojo {
+    color: #fff;
+    background: rgba(233, 69, 96, 0.2);
+    border: 1px solid #e94560;
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+}
+
+.btn-rojo:hover {
+    background: #e94560;
+    color: #fff;
+    box-shadow: 0 0 20px #e94560, 0 0 40px #e94560;
+    transform: translateY(-2px);
+}
+
+/* Botón Cian (Registro) */
+.btn-cian {
+    color: #00d2ff;
+    background: transparent;
+    border: 1px solid #00d2ff;
+}
+
+.btn-cian:hover {
+    background: #00d2ff;
+    color: #000;
+    box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
+    transform: translateY(-2px);
+}
+
+/* --- ANIMACIONES --- */
+@keyframes entradaAlerta {
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes latidoPeligro {
+    0% { box-shadow: 0 0 15px rgba(233, 69, 96, 0.3), inset 0 0 10px rgba(233, 69, 96, 0.1); }
+    100% { box-shadow: 0 0 25px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.3); }
+}
+
+@keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

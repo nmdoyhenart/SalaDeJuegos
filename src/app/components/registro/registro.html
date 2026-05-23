@@ -7,11 +7,11 @@
             </div>
             <div class="card-body p-4">
             
-            <!-- Mensaje de error si el usuario ya existe -->
+            <!-- Mensaje de error -->
             @if (mensajeError()) {
-                <div class="alert custom-alert-danger mb-4 text-center shadow-sm">
+            <div class="alert alert-danger text-center fw-bold mt-3 mb-3" style="background-color: rgba(233, 69, 96, 0.1); border-color: #e94560; color: #e94560;">
                 {{ mensajeError() }}
-                </div>
+            </div>
             }
 
             <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
