@@ -7,6 +7,8 @@ import { AuthService } from './auth.service';
 export class AhorcadoService {
     private authService = inject(AuthService);
 
+    private tiempoInicio: number = 0;
+
     // Diccionarios
     private palabrasPosibles = [
         { palabra: 'ELEFANTE', pista: 'El animal terrestre más grande del mundo' },
@@ -56,6 +58,8 @@ export class AhorcadoService {
         this._palabraSecreta = seleccion.palabra; 
         this.pistaActual.set(seleccion.pista);
         this.palabraOculta.set(Array(this._palabraSecreta.length).fill('_')); 
+
+        this.tiempoInicio = Date.now();
     }
 
     presionarLetra(letra: string) {
@@ -99,14 +103,16 @@ export class AhorcadoService {
     private async guardarPartida(resultadoFinal: string) {
         const usuario = this.authService.usuarioActivo.value;
         const perfil = this.authService.perfilActivo.value;
+        const tiempoJugadoSegundos = Math.floor((Date.now() - this.tiempoInicio) / 1000);
 
         if (usuario) {
         try {
             const { error } = await this.authService.client.from('puntajes_ahorcado').insert({
-            usuario_id: usuario.id,
-            nombre_usuario: perfil?.nombre || 'Jugador',
-            resultado: resultadoFinal,
-            letras_seleccionadas: this.letrasUsadas().length
+                usuario_id: usuario.id,
+                nombre_usuario: perfil?.nombre || 'Jugador',
+                resultado: resultadoFinal,
+                letras_seleccionadas: this.letrasUsadas().length,
+                tiempo_segundos: tiempoJugadoSegundos
             });
 
             if (error) throw error;
