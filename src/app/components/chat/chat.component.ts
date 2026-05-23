@@ -68,7 +68,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.subscripcionChat = null;
         }
 
-        // Inyectamos los mensajes de relleno
+        // Mensajes para pantalla no logueados
         this.mensajes.set([
           { id: 1, emisor: 'Sistema', texto: 'Iniciando conexión cifrada...', created_at: new Date() },
           { id: 2, emisor: 'Anónimo', texto: '¿Alguien para jugar Mayor o Menor?', created_at: new Date() },
