@@ -5,12 +5,13 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { QuienSoyComponent } from './components/quien-soy/quien-soy.component';
 import { AhorcadoComponent } from './components/ahorcado/ahorcado.component';
 import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
+import { publicGuard } from './guards/public.guard';
 // import { SnakeComponent } from './components/snake/snake.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegistroComponent },
+    { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
+    { path: 'registro', component: RegistroComponent, canActivate: [publicGuard] },
     { path: 'quien-soy', component: QuienSoyComponent },
     { path: 'ahorcado', component: AhorcadoComponent },
     { path: 'mayor-menor', component: MayorMenorComponent },

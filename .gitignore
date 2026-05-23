@@ -42,5 +42,5 @@ __screenshots__/
 Thumbs.db
 .vercel
 
-# Environment files
+# Environment
 src/environments
