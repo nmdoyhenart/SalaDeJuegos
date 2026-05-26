@@ -73,25 +73,32 @@
         @if (estadoJuego() !== 'jugando') {
             <div class="resultado-pantalla mb-4 p-4 mx-auto" 
                 [ngClass]="estadoJuego() === 'ganado' ? 'panel-victoria' : 'panel-derrota'">
-            
-            <div class="resultado-icono mb-2">
-                {{ estadoJuego() === 'ganado' ? '🏆' : '💀' }}
-            </div>
+                
+                <div class="resultado-icono mb-2">
+                    {{ estadoJuego() === 'ganado' ? '🏆' : '💀' }}
+                </div>
 
-            <h2 class="fw-bold tracking-widest mb-3"
-                [ngClass]="estadoJuego() === 'ganado' ? 'texto-victoria' : 'texto-derrota'">
-                {{ estadoJuego() === 'ganado' ? '¡VICTORIA!' : '¡GAME OVER!' }}
-            </h2>
+                <h2 class="fw-bold tracking-widest mb-3"
+                    [ngClass]="estadoJuego() === 'ganado' ? 'texto-victoria' : 'texto-derrota'">
+                    {{ estadoJuego() === 'ganado' ? '¡VICTORIA!' : '¡GAME OVER!' }}
+                </h2>
 
-            @if (estadoJuego() === 'perdido') {
-                <p class="text-light fs-5 mb-4">La palabra era: <span class="palabra-revelada">{{ palabraSecreta }}</span></p>
-            } @else {
-                <p class="text-light fs-5 mb-4">¡Adivinaste la palabra secreta!</p>
-            }
+                @if (estadoJuego() === 'perdido') {
+                    <p class="text-light fs-5 mb-0">La palabra era: <span class="palabra-revelada">{{ palabraSecreta }}</span></p>
+                } @else {
+                    <p class="text-light fs-5 mb-0">¡Adivinaste la palabra secreta!</p>
+                }
 
-            <button class="btn-reiniciar" (click)="reiniciarJuego()">
-                JUGAR DE NUEVO
-            </button>
+                <div class="d-flex flex-column align-items-center gap-4 w-100 mt-4">
+                    <button class="btn-reiniciar" (click)="reiniciarJuego()">
+                        JUGAR DE NUEVO
+                    </button>
+
+                    <button class="btn-menu" routerLink="/home">
+                        VOLVER AL MENÚ
+                    </button>
+                </div>
+                
             </div>
         }
 

@@ -223,3 +223,28 @@
     box-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
     transform: scale(1.05);
 }
+
+.btn-menu {
+    background-color: transparent !important;
+    color: #f0f0f5 !important;
+    border: 2px solid rgba(240, 240, 245, 0.3) !important;
+    border-radius: 30px !important; 
+    padding: 12px 30px !important; 
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    width: 80% !important; 
+    opacity: 0.8 !important;
+}
+
+.btn-menu:hover {
+    background-color: rgba(240, 240, 245, 0.1) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    opacity: 1 !important;
+    transform: scale(1.03) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2) !important;
+}
