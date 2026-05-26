@@ -7,6 +7,7 @@ import { AhorcadoComponent } from './components/ahorcado/ahorcado.component';
 import { MayorMenorComponent } from './components/mayor-menor/mayor-menor.component';
 import { PreguntadosComponent } from './components/preguntados/preguntados.component';
 import { SnakeComponent } from './components/snake/snake.component';
+import { ResultadosComponent } from './components/resultados/resultados.component';
 import { publicGuard } from './guards/public.guard';
 import { authGuard } from './guards/auth.guard';
 
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
     { path: 'registro', component: RegistroComponent, canActivate: [publicGuard] },
     { path: 'quien-soy', component: QuienSoyComponent },
+    { path: 'resultados', component: ResultadosComponent, canActivate: [authGuard] },
     // Juegos protegidos
     { path: 'ahorcado', component: AhorcadoComponent, canActivate: [authGuard] },
     { path: 'mayor-menor', component: MayorMenorComponent, canActivate: [authGuard] },

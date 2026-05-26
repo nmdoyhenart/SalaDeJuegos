@@ -1,0 +1,87 @@
+/* =========================================
+    TÍTULOS (ESTÁNDAR)
+========================================= */
+.titulo-marquee { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.titulo-cyberpunk { font-size: 2.8rem; font-weight: 800; letter-spacing: 6px; text-transform: uppercase; margin: 0; }
+.linea-energia { width: 150px; height: 2px; margin-top: 10px; border-radius: 50%; }
+
+/* =========================================
+    BOTONES DE PESTAÑAS (TABS)
+========================================= */
+.btn-tab {
+    background: rgba(10, 10, 20, 0.6);
+    color: #888;
+    border: 2px solid #4a4a5a;
+    border-radius: 8px;
+    padding: 10px 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-tab:hover {
+    color: #fff;
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-tab.active {
+    background: #e94560; /* Un rojo/rosa neón para destacar la pestaña activa */
+    color: #fff;
+    border-color: #e94560;
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+}
+
+/* =========================================
+    TABLA DATOS
+========================================= */
+.neon-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Espacio entre filas */
+    background: transparent !important;
+}
+
+/* Encabezados de la tabla */
+.neon-table thead th {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    color: #e94560 !important;
+    border: none;
+    padding: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Filas completas (Acá definimos el fondo oscuro real) */
+.neon-table tbody tr {
+    background-color: rgba(20, 20, 30, 0.8) !important; /* Forzamos el fondo oscuro */
+    transition: all 0.2s ease;
+}
+
+/* Efecto hover sobre la fila */
+.neon-table tbody tr:hover {
+    background-color: rgba(233, 69, 96, 0.15) !important; 
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.2);
+}
+
+/* Celdas individuales (Deben ser transparentes para mostrar el fondo del tr) */
+.neon-table td {
+    background-color: transparent !important; /* Elimina el fondo blanco invasivo de Bootstrap */
+    color: #f0f0f5 !important; /* Fuerza el texto blanco/grisáceo */
+    padding: 15px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+/* Redondear bordes de la primera y última celda de cada fila para efecto "tarjeta" */
+.neon-table td:first-child { 
+    border-radius: 8px 0 0 8px; 
+    border-left: 1px solid rgba(255, 255, 255, 0.05); 
+}
+.neon-table td:last-child { 
+    border-radius: 0 8px 8px 0; 
+    border-right: 1px solid rgba(255, 255, 255, 0.05); 
+}
