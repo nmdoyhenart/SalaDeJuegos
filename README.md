@@ -1,4 +1,4 @@
-# 🎮 Sala de Juegos
+# 🎮 Sala de Juegos | Nota: 8/10
 
 Trabajo Práctico 1 | Primer Parcial **Programación IV**.
 
