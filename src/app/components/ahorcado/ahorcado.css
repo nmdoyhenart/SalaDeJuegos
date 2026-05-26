@@ -98,6 +98,32 @@
     cursor: not-allowed;
 }
 
+/* --- BOTÓN SECUNDARIO (VOLVER AL MENÚ) --- */
+.btn-menu {
+    background-color: transparent;
+    color: #f0f0f5;
+    border: 2px solid rgba(240, 240, 245, 0.3);
+    border-radius: 30px; /* Mismo radio que btn-reiniciar */
+    padding: 12px 30px; /* Mismo relleno que btn-reiniciar */
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    width: 80%; /* Mismo ancho para mantener simetría */
+    opacity: 0.8;
+}
+
+.btn-menu:hover {
+    background-color: rgba(240, 240, 245, 0.1);
+    color: #ffffff;
+    border-color: #ffffff;
+    opacity: 1;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
 .resultado-pantalla {
     max-width: 450px;
     border-radius: 16px;

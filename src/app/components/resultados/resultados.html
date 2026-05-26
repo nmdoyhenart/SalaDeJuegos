@@ -1,0 +1,85 @@
+<div class="container mt-5 mb-5 text-center">
+    <div class="titulo-marquee mb-4 position-relative">
+        <h1 class="titulo-cyberpunk" style="color: #f0f0f5; text-shadow: 0 0 10px #e94560;">HALL OF FAME</h1>
+        <div class="linea-energia" style="background: linear-gradient(90deg, transparent, #e94560, transparent); box-shadow: 0 0 10px #e94560;"></div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+        <button class="btn-tab" [class.active]="pestaniaActiva() === 'snake'" (click)="cambiarPestania('snake')">SNAKE</button>
+        <button class="btn-tab" [class.active]="pestaniaActiva() === 'preguntados'" (click)="cambiarPestania('preguntados')">PREGUNTADOS</button>
+        <button class="btn-tab" [class.active]="pestaniaActiva() === 'mayormenor'" (click)="cambiarPestania('mayormenor')">MAYOR/MENOR</button>
+        <button class="btn-tab" [class.active]="pestaniaActiva() === 'ahorcado'" (click)="cambiarPestania('ahorcado')">AHORCADO</button>
+    </div>
+
+    <div class="arcade-card mx-auto" style="max-width: 900px; border-radius: 12px; border: 2px solid #4a4a5a;">
+        <div class="arcade-card-content p-4 text-start">
+            
+            @if (cargando()) {
+                <div class="text-center py-5">
+                    <div class="spinner-border text-danger mb-3" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <h4 class="text-light font-monospace">ACCEDIENDO A LA BASE DE DATOS...</h4>
+                </div>
+            } @else {
+                <div class="table-responsive">
+                    <table class="table neon-table text-light font-monospace">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>JUGADOR</th>
+                                <th>SCORE / DESEMPEÑO</th>
+                                <th>FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (pestaniaActiva() === 'snake') {
+                                @for (registro of rankingSnake(); track registro.created_at; let i = $index) {
+                                    <tr>
+                                        <td class="text-warning fw-bold">{{ i + 1 }}</td>
+                                        <td>{{ registro.nombre_usuario }}</td>
+                                        <td class="text-success fw-bold">{{ registro.puntaje }} pts</td>
+                                        <td class="text-secondary">{{ registro.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    </tr>
+                                }
+                            }
+
+                            @if (pestaniaActiva() === 'preguntados') {
+                                @for (registro of rankingPreguntados(); track registro.created_at; let i = $index) {
+                                    <tr>
+                                        <td class="text-warning fw-bold">{{ i + 1 }}</td>
+                                        <td>{{ registro.nombre_usuario }}</td>
+                                        <td class="text-info fw-bold">{{ registro.aciertos }} aciertos</td>
+                                        <td class="text-secondary">{{ registro.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    </tr>
+                                }
+                            }
+
+                            @if (pestaniaActiva() === 'mayormenor') {
+                                @for (registro of rankingMayorMenor(); track registro.fecha; let i = $index) {
+                                    <tr>
+                                        <td class="text-warning fw-bold">{{ i + 1 }}</td>
+                                        <td>{{ registro.nombre_usuario }}</td>
+                                        <td class="text-warning fw-bold">{{ registro.aciertos }} aciertos</td>
+                                        <td class="text-secondary">{{ registro.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    </tr>
+                                }
+                            }
+
+                            @if (pestaniaActiva() === 'ahorcado') {
+                                @for (registro of rankingAhorcado(); track registro.created_at; let i = $index) {
+                                    <tr>
+                                        <td class="text-warning fw-bold">{{ i + 1 }}</td>
+                                        <td>{{ registro.nombre_usuario }}</td>
+                                        <td [class.text-success]="registro.resultado === 'Victoria'" [class.text-danger]="registro.resultado === 'Derrota'">
+                                            {{ registro.resultado }}
+                                        </td>
+                                        <td class="text-secondary">{{ registro.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,11 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AhorcadoService } from '../../services/ahorcado.service';
 
 @Component({
   selector: 'app-ahorcado',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './ahorcado.html',
   styleUrls: ['./ahorcado.css']
 })

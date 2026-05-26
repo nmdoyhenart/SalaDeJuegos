@@ -14,7 +14,7 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
     </li>
-    <!-- Verificamos el valor del signal. Si es nulo, mostramos Login/Registro -->
+    
     @if (!usuarioLogueado()) {
       <li class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
@@ -23,7 +23,10 @@
         <a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a>
       </li>
     } @else {
-      <!-- Si el signal tiene datos, mostramos el correo y el botón de salir -->
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/resultados" routerLinkActive="active">Estadísticas</a>
+      </li>
+
       <li class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex gap-3 align-items-center">
         <span class="badge bg-secondary text-light fw-normal border border-secondary" style="font-size: 0.9rem; padding: 8px 12px;">
           {{ perfilJugador()?.nombre }}
@@ -33,6 +36,7 @@
         </button>
       </li>
     }
+    
     <li class="nav-item">
       <a class="nav-link" routerLink="/quien-soy" routerLinkActive="active">Quién Soy</a>
     </li>
@@ -41,7 +45,6 @@
 </div>
 </nav>
 
-<!-- Contenedor principal donde se cargan dinámicamente los componentes -->
 <div class="container mt-4">
   <router-outlet></router-outlet>
 </div>

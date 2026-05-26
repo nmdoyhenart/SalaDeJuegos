@@ -1,11 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MayorMenorService } from '../../services/mayor-menor.service';
 
 @Component({
   selector: 'app-mayor-menor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './mayor-menor.html',
   styleUrls: ['./mayor-menor.css']
 })

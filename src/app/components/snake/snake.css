@@ -1,0 +1,176 @@
+/* =========================================
+    1. CABECERA Y TÍTULOS
+========================================= */
+.titulo-marquee {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-cyberpunk {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #f0f0f5;
+    letter-spacing: 6px; 
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 
+        0 0 5px rgba(0, 255, 136, 0.3), 
+        0 0 10px rgba(0, 255, 136, 0.1);
+    /* Animación estandarizada adaptada al verde */
+    animation: resplandorVerdeSuave 4s infinite alternate ease-in-out;
+}
+
+.linea-energia {
+    width: 150px;
+    height: 2px; 
+    margin-top: 10px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.5), transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+    /* Animación estandarizada */
+    animation: latidoSuave 4s infinite ease-in-out;
+}
+
+.cursor-parpadeo {
+    animation: parpadeoTerminal 1s step-end infinite;
+}
+
+/* --- ANIMACIONES ESTANDAR --- */
+@keyframes resplandorVerdeSuave {
+    0% { 
+        opacity: 0.9; 
+        text-shadow: 0 0 4px rgba(0, 255, 136, 0.2), 0 0 8px rgba(0, 255, 136, 0.1); 
+    }
+    100% { 
+        opacity: 1; 
+        text-shadow: 0 0 8px rgba(0, 255, 136, 0.5), 0 0 15px rgba(0, 255, 136, 0.2); 
+    }
+}
+
+@keyframes latidoSuave {
+    0% { opacity: 0.4; width: 130px; }
+    50% { opacity: 0.8; width: 160px; }
+    100% { opacity: 0.4; width: 130px; }
+}
+
+@keyframes parpadeoTerminal {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* =========================================
+    ANIMACIÓN EMOJI SERPIENTE
+========================================= */
+.snake-emoji-animado {
+    font-size: 5rem; /* Tamaño gigante para que destaque en el centro */
+    /* Usamos drop-shadow en lugar de text-shadow porque funciona mejor con los bordes de los emojis */
+    filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
+    animation: deslizarSerpiente 3s ease-in-out infinite;
+    display: inline-block; /* Necesario para que la transformación (rotate) funcione bien */
+}
+
+/* Animación: Sube, baja y rota un poquito de lado a lado */
+@keyframes deslizarSerpiente {
+    0% { 
+        transform: translateY(0) rotate(-5deg); 
+    }
+    50% { 
+        transform: translateY(-15px) rotate(10deg); 
+    }
+    100% { 
+        transform: translateY(0) rotate(-5deg); 
+    }
+}
+
+/* =========================================
+    2. ADAPTACIONES DE PALETA VERDE (SNAKE)
+========================================= */
+.neon-border-snake {
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+    background: rgba(10, 10, 20, 0.4);
+}
+
+/* =========================================
+    3. MOTOR GRÁFICO (CANVAS LAYOUT)
+========================================= */
+.canvas-wrapper {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.tablero-canvas {
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    border-radius: 6px;
+    display: block;
+}
+
+.canvas-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 8, 16, 0.9);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    z-index: 5;
+}
+
+/* =========================================
+    4. CONTROLES Y REINICIO
+========================================= */
+.btn-jugar-snake {
+    background-color: #00ff88;
+    color: #0d0d1a;
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-jugar-snake:hover {
+    background-color: transparent;
+    color: #00ff88;
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+}
+
+/* Botón Secundario (Volver al menu) */
+.btn-menu {
+    background-color: transparent;
+    color: #f0f0f5;
+    border: 2px solid rgba(240, 240, 245, 0.3);
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.btn-menu:hover {
+    background-color: rgba(240, 240, 245, 0.1);
+    color: #ffffff;
+    border-color: #ffffff;
+    opacity: 1;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.text-shadow-green {
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}

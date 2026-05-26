@@ -77,10 +77,20 @@
             </div>
         } @else {
             <div class="resultado-pantalla panel-derrota mb-2 p-4 mx-auto w-100">
-            <div class="resultado-icono mb-2">💀</div>
-            <h2 class="fw-bold tracking-widest mb-3 texto-derrota">¡TE EQUIVOCASTE!</h2>
-            <p class="text-light fs-5 mb-4">Lograste una racha de <span class="palabra-revelada">{{ aciertos() }}</span> aciertos.</p>
-            <button class="btn-reiniciar" (click)="iniciarJuego()">JUGAR DE NUEVO</button>
+                <div class="resultado-icono mb-2">💀</div>
+                <h2 class="fw-bold tracking-widest mb-3 texto-derrota">¡TE EQUIVOCASTE!</h2>
+                
+                <p class="text-light fs-5 mb-0">Lograste una racha de <span class="palabra-revelada">{{ aciertos() }}</span> aciertos.</p>
+                
+                <div class="d-flex flex-column align-items-center gap-4 w-100 mt-4">
+                    <button class="btn-reiniciar" (click)="iniciarJuego()">
+                        JUGAR DE NUEVO
+                    </button>
+                    
+                    <button class="btn-menu" routerLink="/home">
+                        VOLVER AL MENÚ
+                    </button>
+                </div>
             </div>
         }
         </div>
