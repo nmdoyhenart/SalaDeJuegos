@@ -172,4 +172,46 @@ La pantalla contará con:
 
 > ⚠️ La contraseña NO se almacena en la base de datos.
 
+---
+
+# ✅ Sprint #3
+
+## 🎮 Juego: Ahorcado
+Implementación del juego Ahorcado utilizando botones para seleccionar letras del abecedario, evitando el uso del teclado.  
+Al finalizar cada partida se almacenan estadísticas del jugador en la base de datos, incluyendo tiempo de finalización, cantidad de letras seleccionadas y resultado de la partida.
+
+---
+
+## 🎴 Juego: Mayor o Menor
+Desarrollo del juego de cartas donde el usuario debe adivinar si la próxima carta será mayor o menor que la actual.  
+Se registran en la base de datos los resultados obtenidos por cada usuario, incluyendo cantidad de aciertos y desempeño general.
+
+---
+
+## 💬 Sala de Chat
+Implementación de un chat global en tiempo real para usuarios autenticados.  
+Los mensajes enviados se almacenan en la base de datos junto con el usuario y la fecha de envío.  
+La aplicación actualiza automáticamente los mensajes en todos los clientes conectados.
+
+---
+
+# ✅ Sprint #4
+
+## ❓ Juego: Preguntados
+Implementación de un juego de preguntas y respuestas utilizando una API externa.  
+Las respuestas se seleccionan mediante botones y, al finalizar la partida, se almacenan estadísticas del jugador como cantidad de respuestas correctas y puntaje obtenido.
+
+---
+
+## 🕹️ Juego Propio
+Desarrollo de un juego creado específicamente para el proyecto.  
+Se agregan las reglas y la explicación en la sección “Quién Soy”.  
+Además, se registran estadísticas relacionadas al desempeño del jugador, como puntaje o tiempo de finalización.
+
+---
+
+## 📊 Resultados y Estadísticas
+Creación de la sección “Resultados” para visualizar estadísticas de los juegos.  
+La página cuenta con cuatro tablas mostrando el rendimiento de los jugadores en cada juego, ordenados desde el mejor desempeño hasta el menor puntaje.
+
 # Desarollado por: Nicolás Doyhenart - 2026
